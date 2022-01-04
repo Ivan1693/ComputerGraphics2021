@@ -1,0 +1,8 @@
+objppmx/obj/*.o
+objppmx/bin/*
+objppmx/test/
+objppmx/objppmx
+objppmx/ppm/
+.vscode/
+workspace.code-workspace
+c_cpp_properties.json
