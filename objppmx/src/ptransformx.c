@@ -201,54 +201,10 @@ void scale_object(vfhandler_s * objxhandler,scale_t * scale){
 void transform_point(matrix4d_t m, float * x, float * y, float * z, float * w){
     float xr=*x,yr=*y,zr=*z,wr=*w;
 
-    //printf("<%.2f+%.2f+%.2f+%.2f>\n",m[0].z*(*x),m[1].z*(*y),m[2].z*(*z),m[3].z*(*w));
-
     *x=m[0].x*(xr) + m[1].x*(yr) + m[2].x*(zr) + m[3].x*(wr);
     *y=m[0].y*(xr) + m[1].y*(yr) + m[2].y*(zr) + m[3].y*(wr);
     *z=m[0].z*(xr) + m[1].z*(yr) + m[2].z*(zr) + m[3].z*(wr);
     *w=m[0].w*(xr) + m[1].w*(yr) + m[2].w*(zr) + m[3].w*(wr);
-/*
-    point3d_t point= {0};
-    matrix4d_t matrix=(matrix4d_t)malloc(sizeof(point4d_t)*4);;
-    memset(matrix, 0x00,sizeof(point4d_t)*4);
-
-    float x = atof(argv[1]),
-          y = atof(argv[2]),
-          z = atof(argv[3]),
-          w=1;
-    point.x = x;
-    point.y = y;
-    point.z = z;
-
-
-matrix[0].x = 1;
-matrix[0].y = 0;
-matrix[0].z = 0.84;
-matrix[0].w = 0;
-
-matrix[1].x = 0;
-matrix[1].y = 0.54;
-matrix[1].z = 0.84;
-matrix[1].w = 0;
-
-matrix[2].x = 0;
-matrix[2].y = -0.84;
-matrix[2].z = 0.54;
-matrix[2].w = 0;
-
-matrix[3].x = 0;
-matrix[3].y = 0;
-matrix[3].z = 0;
-matrix[3].w = 1;
-printf("InPoint: ");print_vector3d(point);
-
-printf("\nmatrix:\n");
-print_matrix4d(matrix);
-
-transform_point(matrix, &point.x, &point.y,&point.z,&w);
-
-
-printf("OutPoint: ");print_vector3d(point);*/
 
 }
 
@@ -292,10 +248,6 @@ matrix4d_t get_2dprojection_matrix(projection2d_t center_vector){
     0   0   0   0
     0   0   -1  c3
 */
-
-
-
-
     projection_matrix[0].x = center_vector.z;
     
     projection_matrix[1].y = center_vector.z;
@@ -305,17 +257,6 @@ matrix4d_t get_2dprojection_matrix(projection2d_t center_vector){
     projection_matrix[2].w = -1;
     
     projection_matrix[3].w = -center_vector.z;
-
-
-
-    /*projection_matrix[0].x = center_vector.z;
-    projection_matrix[0].z = -1*(center_vector.x);
-
-    projection_matrix[1].y = center_vector.z;
-    projection_matrix[1].z = -1*(center_vector.y);
-
-    projection_matrix[3].z = -1;
-    projection_matrix[3].w = center_vector.z;*/
 
     return projection_matrix;
 }
@@ -353,16 +294,14 @@ matrix4d_t init_object_translate(translate_t translate_vector){
 
 
 matrix4d_t get_rotation_matrix(animation_frame * frame){
-    FILE * f = fopen("rotationMatrix.txt", "w");
     matrix4d_t rotation_matrix=(matrix4d_t)malloc(sizeof(point4d_t)*4);
     point3d_t * cos = &frame->rotation.cos;
     point3d_t * sin = &frame->rotation.sin;
     point3d_t * rotcenter = &frame->rotation.center;
+    double r[9];
 
     memset(rotation_matrix, 0x00,sizeof(point4d_t)*4);
-    int i;
-    double r[9];
-    fprintf(f,"cos: [%f %f %f] \t sin: [%f %f %f]\n",cos->x,cos->y,cos->z,sin->x,sin->y,sin->z);
+
     r[0] = cos->y*cos->z;                               //R1
     r[1] = (-cos->z*sin->x*sin->y) + (cos->x*sin->z);   //R2
     r[2] = (cos->x*cos->z*sin->y) + (sin->x*cos->z);    //R3
@@ -373,10 +312,6 @@ matrix4d_t get_rotation_matrix(animation_frame * frame){
     r[7] = -cos->y*sin->x;                              //R8
     r[8] = cos->x*cos->y;                               //R9
 
-    for(i=0;i<9;i++){
-        fprintf(f,"r%d: %f\t",i+1,r[i]);
-    }
-    fprintf(f,"\n");
     rotation_matrix[0].x = r[0];
     rotation_matrix[0].y = r[1];
     rotation_matrix[0].z = r[2];
@@ -397,35 +332,8 @@ matrix4d_t get_rotation_matrix(animation_frame * frame){
     rotation_matrix[3].z = rotcenter->z;
     rotation_matrix[3].w = 1;
 
-    fclose(f);
     return rotation_matrix;
 }
-
-/*
-matrix4d_t get_transformation_matrix(animation_frame * frame){
-    matrix4d_t transformation_matrix=(matrix4d_t)malloc(sizeof(point4d_t)*4);
-    point3d_t * cos = &frame->rotation.cos;
-    point3d_t * sin = &frame->rotation.sin;
-    point3d_t * s = &frame->scale;
-    point3d_t * t = &frame->translate;
-    point3d_t * o = &frame->projection;
-    memset(transformation_matrix, 0x00,sizeof(point4d_t)*4);
-
-    double r[9], t[10];
-    r[0] = cos->y*cos->z;
-    r[1] = cos->y*sin->z;
-    r[2] = sin->y;
-    r[3] = -1*(cos->z*sin->x*sin->y + cos->x*sin->z);
-    r[4] = cos->x*cos->z - (sin->x*sin->y*sin->z);
-    r[5] = cos->y*sin->z;
-    r[6] = sin->x*sin->z -(cos->x*cos->z*sin->y);
-    r[7] = -1*(cos->x*sin->y*sin->z + cos->z*sin->x);
-    r[8] = cos->x*cos->y;
-
-    return transformation_matrix;
-}
-*/
-
 
 int animation_stack_push(animation_stack ** top, animation_frame * frame){
     animation_stack * element = (animation_stack *)malloc(sizeof(animation_stack));

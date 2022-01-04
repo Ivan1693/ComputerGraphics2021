@@ -3,6 +3,8 @@
 
 #include "dstructx.h"
 #include "fileiox.h"
+#include "linedrawx.h"
+#include "ptransformx.h"
 #include <unistd.h>
 
 #define OBJFILE_LINE_SIZE 100

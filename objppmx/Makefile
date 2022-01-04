@@ -16,7 +16,7 @@ $(OBJDIR)/%.o:$(SRCDIR)/%.c
 
 $(TARGET): $(OBJS)
 	@echo $(OBJS)
-	$(CC) $^ -o $(TARGET) $(LDFLAGS)
+#$(CC) $^ -o $(TARGET) $(LDFLAGS)
 
 .PHONY: clean pclean
 
