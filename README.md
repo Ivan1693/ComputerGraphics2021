@@ -1,7 +1,9 @@
 # Computer Graphics 2021 - OBJPPMx
 > Brandon Iván Hernández Reséndiz - 2018630101 - 3CV14
 
-Project developed for the ESCOM's Computer Graphics course imparted by Professor Rafael Norman. It contains a set modules to write C programs to load basic .obj files and render to .ppm files.
+Project developed for the ESCOM's Computer Graphics course imparted by Professor Rafael Norman Saucedo Delgado. It contains a set modules to write C programs to load basic .obj files and render to .ppm files.
+
+> **Note:** Please give a quick view to the README file on each Practice directory. To compile each practice the objppmx/obj/*.o objects are nedeed. On each practice the Makefile will check if these exists, if not, then it will compile them.
 
 ## Brief description
 
