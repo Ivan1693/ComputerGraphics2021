@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #define OBJFILE_LINE_SIZE 100
-#define DEBUG 3
+#define DEBUG 0
 
 /*
 * Loads the configuration file into memory using a config_h (Configuration handler) structure.

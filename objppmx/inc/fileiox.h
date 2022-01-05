@@ -10,7 +10,7 @@
 #include "linedrawx.h"
 
 #define LINE_READ_BUFFER_SIZE 100
-#define DEBUG 3
+#define DEBUG 0
 
 /*
 * @brief Structure to load configuration options from .objxppm file

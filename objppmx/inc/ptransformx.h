@@ -64,6 +64,7 @@ matrix4d_t init_object_scale(vfhandler_s * objxhandler,float value);
 matrix4d_t init_object_translate(translate_t translate_vector);
 
 matrix4d_t get_rotation_matrix(animation_frame * frame);
+matrix4d_t get_transformation_matrix(animation_frame * frame);
 int animation_stack_push(animation_stack ** stack, animation_frame * frame);
 int animation_stack_pop(animation_stack ** stack);
 

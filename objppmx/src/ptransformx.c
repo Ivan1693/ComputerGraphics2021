@@ -335,6 +335,46 @@ matrix4d_t get_rotation_matrix(animation_frame * frame){
     return rotation_matrix;
 }
 
+matrix4d_t get_transformation_matrix(animation_frame * frame){
+    matrix4d_t r=get_rotation_matrix(frame);
+    point3d_t * s = &frame->scale;
+    point3d_t * t = &frame->translate;
+    matrix4d_t transformation_matrix=(matrix4d_t)malloc(sizeof(point4d_t)*4);
+/*
+    [0]     [1]     [2]     [3]
+x   rx*sx   rx      rx      tx
+
+y   ry      ry*sy   ry      ty
+
+z   rz      rz      rz*sz   tz
+
+w   0       0       0       1
+*/
+
+    transformation_matrix[0].x = r[0].x*s->x;
+    transformation_matrix[0].y = r[0].y;
+    transformation_matrix[0].z = r[0].z;
+    transformation_matrix[0].w = 0;
+
+    transformation_matrix[1].x = r[1].x;
+    transformation_matrix[1].y = r[1].y*s->y;
+    transformation_matrix[1].z = r[1].z;
+    transformation_matrix[1].w = 0;
+
+    transformation_matrix[2].x = r[2].x;
+    transformation_matrix[2].y = r[2].y;
+    transformation_matrix[2].z = r[2].z*s->z;
+    transformation_matrix[2].w = 0;
+
+    transformation_matrix[3].x = t->x;
+    transformation_matrix[3].y = t->y;
+    transformation_matrix[3].z = t->z;
+    transformation_matrix[3].w = 1;
+
+    return transformation_matrix;
+}
+
+
 int animation_stack_push(animation_stack ** top, animation_frame * frame){
     animation_stack * element = (animation_stack *)malloc(sizeof(animation_stack));
 

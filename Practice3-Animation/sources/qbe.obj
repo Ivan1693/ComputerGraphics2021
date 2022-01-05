@@ -1,0 +1,14 @@
+v 0 0 0 #A
+v 1 0 0 #B
+v 1 1 0 #C
+v 0 1 0 #D
+v 0 1 1 #E
+v 0 0 1 #F
+v 1 1 1 #G
+v 1 0 1 #H
+f 1 2 3 4#Inferior
+f 7 8 6 5#Superior
+f 2 3 7 8#LateralDerecha
+f 1 4 5 6#LateralIzquierda
+f 3 4 5 7#Anterior
+f 2 1 6 8#Frontal

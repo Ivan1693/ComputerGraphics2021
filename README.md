@@ -23,16 +23,18 @@ Defines the data structures and its functions to open and write files. It also p
 
 #### `linedrawx`
 
-Contains the algorithms to write lines, using the naive approach, the DDA algorithm and the Bresenham algorithm.
+Contains the algorithms to write lines, using the Bresenham algorithm.
 
 #### `ptansformx`
 
 Defines a set of functions to transform the lines, and points of a model. Transformations as scaling, translating, 3D to 2D projections, among others can be made using the functions implemented in this module.
 
 ## OXP and ASTCK files
-This file extension  is a text plain file used to configure the input and the output of the program. It uses a set of defined key-value pairs to set the input and output file, the dimmensions, initial scale, translation and center of projection, and finally if defined, the animation stack to make an AVI video file. This animation stack defines on each line of a plain text file the transformation for each frame given in terms of scale, translation, angle of traslation in the x,y,z axis and the center of this traslation.
+This file extension  is a text plain file used to configure the input and the output of the program. It uses a set of defined key-value pairs to set the input and output file, the dimmensions, initial scale, translation and center of projection, and finally if defined, the animation stack to make an AVI video file. This animation stack defines on each line of a plain text file the transformation for each frame given in terms of scale, translation, angle of traslation in the x,y,z axis and the center of this translation. As the program uses a stack structure, the first line of the `.astck` file corresponds to the last animation frame.
 
-### Example of a .objxppm file
+> If you are making an animation the key `output` could not be included.
+
+### Example of a `.oxp` file
 ```
 file:test/model.obj
 width:1920
@@ -43,7 +45,7 @@ translate:1.7 -18.5 0 0
 center:0.01 0.01 0.02
 transformation:test/model.astck
 ```
-### Example of a .astck file
+### Example of a `.astck` file
 ```
 1.5 1.5 1.5 0 0 0 0.01 0.01 0.01 0 0 0
 1.4 1.4 1.4 0 0 0 0.01 0.01 0.01 0 0 0

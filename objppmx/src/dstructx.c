@@ -208,14 +208,10 @@ void free_vector(void * ptr_array[], int length){
 }
 
 void print_matrix4d(matrix4d_t matrix){
-    FILE * f = fopen("rotationMatrix.txt","a");
-    
     printf("%4.2f\t%4.2f\t%4.2f\t%4.2f\n", matrix[0].x, matrix[1].x, matrix[2].x, matrix[3].x);
     printf("%4.2f\t%4.2f\t%4.2f\t%4.2f\n", matrix[0].y, matrix[1].y, matrix[2].y, matrix[3].y);
     printf("%4.2f\t%4.2f\t%4.2f\t%4.2f\n", matrix[0].z, matrix[1].z, matrix[2].z, matrix[3].z);
     printf("%4.2f\t%4.2f\t%4.2f\t%4.2f\n", matrix[0].w, matrix[1].w, matrix[2].w, matrix[3].w);
-
-    fclose(f);
 }
 
 void print_vector3d(point3d_t point){
